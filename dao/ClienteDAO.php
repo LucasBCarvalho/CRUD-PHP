@@ -90,21 +90,20 @@ class ClienteDAO{
         try{
             $conexao = Conexao::conexao();
 
-            // Verifique se o ID do cliente é válido
+            // Verifica se o ID do cliente é válido
             if (!is_numeric($idCliente) || $idCliente <= 0) {
                 echo "ID do cliente inválido.";
                 return false;
             }
 
-            // Preparar a consulta SQL para excluir o cliente
+            // Prepara a consulta SQL para excluir o cliente
             $sql = "DELETE FROM cliente WHERE id_cliente = :id_cliente";
             $stmt = $conexao->prepare($sql);
             $stmt->bindParam(":id_cliente", $idCliente, PDO::PARAM_INT);
 
-            // Executar a declaração SQL
+            // Executa a declaração SQL
             $stmt->execute();
 
-            // Verifique se alguma linha foi afetada
             if ($stmt->rowCount() > 0) {
                 return true;
             } else {
@@ -150,7 +149,7 @@ class ClienteDAO{
     
             // Redireciona para a página de listar clientes após a atualização bem-sucedida
             header("Location: listarClientes.php?message=Cliente atualizado com sucesso");
-            exit(); // Certifique-se de sair após o redirecionamento para evitar que o código continue executando
+            exit();
     
         }catch(PDOException $exc){
             // Em caso de erro, exibe a mensagem de exceção
